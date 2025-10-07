@@ -88,7 +88,7 @@ https.createServer((req, res) => {
         res.end(`Error: invalid endpoint!`)
     }
 
-}).listen(443, () => {
+}).listen(443, '0.0.0.0', () => {
     console.log('Server listening on port 443')
 });
 
@@ -97,7 +97,7 @@ http.createServer((req, res) => {
     const host = req.headers['host'];
     res.writeHead(301, { "Location": `https://${host}${req.url}` }); // 301: moved permanently
     res.end();
-}).listen(80, () => {
+}).listen(80, '0.0.0.0', () => {
     console.log('HTTP server running on port 80 (redirecting to HTTPS)');
 });
 
