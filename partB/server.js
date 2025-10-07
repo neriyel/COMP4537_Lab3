@@ -3,8 +3,15 @@
 
 import { labels } from './lang/en/text.js';
 import http from 'http';
+import https from 'https';
 import fs from 'fs';
 import url from 'url';
+
+//  ============ SSL Certificate Options =========================================
+const options = {
+    key: fs.readFileSync('./ssl/key.pem'),
+    cert: fs.readFileSync('./ssl/cert.pem')
+}
 
 // ============ Create a route map (move logic onto here) ============================================
 const routes = {
@@ -56,9 +63,9 @@ const routes = {
     }
 }
 
-
+// ================= HTTPS Server =================================================
 http.createServer((req, res) => {
-    console.log('Request received');
+    console.log('HTTPS Request received');
     res.writeHead(200, { 'Content-type': "text/html", "Access-Control-Allow-Origin": "*" });
 
     // Parsing url for route and query params 
@@ -81,7 +88,16 @@ http.createServer((req, res) => {
         res.end(`Error: invalid endpoint!`)
     }
 
-}).listen(8080);
+}).listen(443, () => {
+    console.log('Server listening on port 443')
+});
 
+// ================= HTTP → HTTPS Redirect ========================================
+http.createServer((req, res) => {
+    const host = req.headers['host'];
+    res.writeHead(301, { "Location": `https://${host}${req.url}` }); // 301: moved permanently
+    res.end();
+}).listen(80, () => {
+    console.log('HTTP server running on port 80 (redirecting to HTTPS)');
+});
 
-console.log('Server listening on port 8080');
