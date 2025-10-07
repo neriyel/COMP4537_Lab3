@@ -8,10 +8,10 @@ import fs from 'fs';
 import url from 'url';
 
 //  ============ SSL Certificate Options =========================================
-const options = {
-    key: fs.readFileSync('./ssl/key.pem'),
-    cert: fs.readFileSync('./ssl/cert.pem')
-}
+// const options = {
+//     key: fs.readFileSync('./ssl/key.pem'),
+//     cert: fs.readFileSync('./ssl/cert.pem')
+// }
 
 // ============ Create a route map (move logic onto here) ============================================
 const routes = {
