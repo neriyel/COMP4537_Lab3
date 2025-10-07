@@ -64,7 +64,7 @@ const routes = {
 }
 
 // ================= HTTPS Server =================================================
-http.createServer((req, res) => {
+https.createServer((req, res) => {
     console.log('HTTPS Request received');
     res.writeHead(200, { 'Content-type': "text/html", "Access-Control-Allow-Origin": "*" });
 
