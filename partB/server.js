@@ -64,7 +64,7 @@ const routes = {
 }
 
 // ================= HTTPS Server =================================================
-https.createServer(options, (req, res) => {
+http.createServer((req, res) => {
     console.log('HTTPS Request received');
     res.writeHead(200, { 'Content-type': "text/html", "Access-Control-Allow-Origin": "*" });
 
@@ -93,11 +93,11 @@ https.createServer(options, (req, res) => {
 });
 
 // ================= HTTP → HTTPS Redirect ========================================
-http.createServer((req, res) => {
-    const host = req.headers['host'];
-    res.writeHead(301, { "Location": `https://${host}${req.url}` }); // 301: moved permanently
-    res.end();
-}).listen(80, '0.0.0.0', () => {
-    console.log('HTTP server running on port 80 (redirecting to HTTPS)');
-});
+// http.createServer((req, res) => {
+//     const host = req.headers['host'];
+//     res.writeHead(301, { "Location": `https://${host}${req.url}` }); // 301: moved permanently
+//     res.end();
+// }).listen(80, '0.0.0.0', () => {
+//     console.log('HTTP server running on port 80 (redirecting to HTTPS)');
+// });
 
